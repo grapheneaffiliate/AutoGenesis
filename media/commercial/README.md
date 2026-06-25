@@ -8,6 +8,8 @@ verification layer) — nothing reaches an executor without a passing proof.
 - `AUTOGENESIS_commercial_30s.mp4` — the core pitch (trust the fix). 1920×1080, 30.0s.
 - `AUTOGENESIS_self_replication_30s.mp4` — robots building robots, robots maintaining
   themselves, and why security is non-negotiable once self-replication is real. 1920×1080, 30.0s.
+- `AUTOGENESIS_swarm_30s.mp4` — a darker, warfare-framed cut: uncontrolled self-replication as
+  a bottomless pit of steel locusts, bounded by the proof-gate. 1920×1080, 30.0s.
 
 ## How it was made (Higgsfield)
 
@@ -38,3 +40,14 @@ verification layer) — nothing reaches an executor without a passing proof.
 | 4 | A rogue robot with corrupted red code; a padlock shatters | "When machines replicate, security isn't optional." |
 | 5 | A verification gateway passing green-sealed packets, rejecting a red one | "AUTOGENESIS makes proof the price of propagation. No certificate, no replication. Verified before it ever spreads." |
 | 6 | Verified robots building & repairing each other; AUTOGENESIS logo | "Self-building. Self-healing. Provably secure. AUTOGENESIS." |
+
+## Storyboard / script — `AUTOGENESIS_swarm_30s.mp4`
+
+| # | Scene | Voiceover |
+|---|-------|-----------|
+| 1 | War-torn city, a swarm of military robots rising from the rubble | "This is self-replication without control. Machines that build machines." |
+| 2 | A bottomless molten foundry-pit spawning machines like locusts | "One becomes two. Two become four. A swarm with no end." |
+| 3 | An immense drone swarm blackening the sky | "A bottomless pit of steel locusts, darkening the sky. No army could stop it." |
+| 4 | A fractal chain of robots replicating, red UNVERIFIED glyphs multiplying | "Unless every copy must first prove itself." |
+| 5 | The swarm halts at a blazing verification gate; uncertified units power down | "AUTOGENESIS makes proof the price of replication. No certificate, no offspring." |
+| 6 | Smoke clears over an orderly verified formation; AUTOGENESIS logo | "The swarm, bounded. AUTOGENESIS." |
