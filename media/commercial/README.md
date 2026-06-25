@@ -10,6 +10,8 @@ verification layer) — nothing reaches an executor without a passing proof.
   themselves, and why security is non-negotiable once self-replication is real. 1920×1080, 30.0s.
 - `AUTOGENESIS_swarm_30s.mp4` — a darker, warfare-framed cut: uncontrolled self-replication as
   a bottomless pit of steel locusts, bounded by the proof-gate. 1920×1080, 30.0s.
+- `AUTOGENESIS_abundance_30s.mp4` — a bright, hopeful cut: autonomous systems ending scarcity and
+  curing disease, made trustworthy by verifiable proof (safe by construction). 1920×1080, 30.0s.
 
 ## How it was made (Higgsfield)
 
@@ -51,3 +53,14 @@ verification layer) — nothing reaches an executor without a passing proof.
 | 4 | A fractal chain of robots replicating, red UNVERIFIED glyphs multiplying | "Unless every copy must first prove itself." |
 | 5 | The swarm halts at a blazing verification gate; uncertified units power down | "AUTOGENESIS makes proof the price of replication. No certificate, no offspring." |
 | 6 | Smoke clears over an orderly verified formation; AUTOGENESIS logo | "The swarm, bounded. AUTOGENESIS." |
+
+## Storyboard / script — `AUTOGENESIS_abundance_30s.mp4`
+
+| # | Scene | Voiceover |
+|---|-------|-----------|
+| 1 | Sunrise over a green city; autonomous systems working among people | "Imagine machines that never tire." |
+| 2 | An autonomous vertical farm overflowing with fresh produce | "Autonomous systems that grow our food, build our cities, and end scarcity." |
+| 3 | A biomedical lab designing a cure; a recovered patient smiles | "Tireless labs that hunt down disease and design the cure overnight. Abundance, and health, for everyone." |
+| 4 | A certificate seal protecting a network of autonomous systems | "But autonomy you can't trust is a risk you can't take." |
+| 5 | Actions flowing through a verification gate, each proof-sealed | "AUTOGENESIS gives every autonomous system a proof you can verify. Safe by construction." |
+| 6 | A thriving green city of healthy people + verified robots; logo | "Abundance. Health. AUTOGENESIS." |
