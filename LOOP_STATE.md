@@ -9,7 +9,7 @@
 
 ## Last run (perfection-harness cycle)
 
-- **Gate: `python -m pytest` → 51 passed, exit 0, `-W error` clean (zero
+- **Gate: `python -m pytest` → 55 passed, exit 0, `-W error` clean (zero
   warnings, zero skips).** Verified twice: with Z3 active *and* with Z3 forced
   unavailable — both engine paths produce identical verdicts across the whole
   suite (no z3/native disagreement recorded anywhere).
@@ -34,6 +34,13 @@
   *with* the genome but not by the genome-less check, and the consistency
   obligation is recorded for valid procedures.
 - **README honesty corrections applied** (see below).
+- **Branched-DAG coverage** (follow-up increment): added
+  `tests/test_branched_hierarchy.py` (4 tests) on a forked assembly (a shared
+  `column` carrying two independent bracket→sensor branches) — proving the
+  hierarchy-aware proof generalises from the rrbot *chain* to a genuine *partial
+  order*: it accepts the planner's order **and** any other valid LIFO
+  interleaving of the independent branches, while still rejecting a within-branch
+  precedence violation. Suite now **55 passed**, both engines.
 
 ## Completed increments
 
@@ -48,13 +55,14 @@
 | L3+ | `verify/formal.py` — symbolic ordering proof (hierarchy-aware, §9) | ✅ |
 | Test | `tests/test_formal_lifo.py` — deep-fault LIFO/band coverage (§12) | ✅ |
 | Test | `tests/test_formal_symbolic.py` — hierarchy-precedence proof value | ✅ |
+| Test | `tests/test_branched_hierarchy.py` — DAG (partial-order) coverage | ✅ |
 
 ## Objective gate status (§12)
 
 - [x] Acceptance tests pass and are proven able to fail — multi-blocker
       ordering/conservation, inclusive torque-band edges, and a mirror-consistent
       hierarchy violation caught only by the genome-aware proof.
-- [x] Build imports clean; suite green (**51 tests**), `-W error` clean.
+- [x] Build imports clean; suite green (**55 tests**), `-W error` clean.
 - [x] System artifact (the repair certificate) verifies, and a deliberately
       tampered procedure **fails** `verify_against`.
 - [x] Z3 discharges the spec (tolerance band) and formal (ordering) obligations
@@ -73,7 +81,7 @@
   (`Distinct`/range, LIFO mirror biconditional, hierarchy precedence edges) and
   proves the structural spec is satisfiable. Behaviour-preserving on all prior
   cases; strictly stronger (catches mirror-consistent hierarchy violations).
-  **Still NOT merged to main** — merge-to-main remains the §9 irreversible gate.
+  **Merged to `master` via PR #2** (human-ratified) at merge commit `55a0e12`.
 - **README honesty corrections** — applied: scoped the von Neumann claim to the
   specific checked error class; named the three escapees (analytic-model error;
   spec-conformant-but-defective part; **misdiagnosis** — the cert proves the
@@ -110,5 +118,6 @@
 ## Stop conditions / next increments (not yet started)
 
 - Candidate increments inside the autonomous envelope: more FMEA fault classes +
-  per-fault tests; branched (non-chain) access graphs; a USD/MJCF adapter; a CLI.
+  per-fault tests; a USD/MJCF adapter; a CLI. (Branched non-chain access graphs:
+  ✅ done — `tests/test_branched_hierarchy.py`.)
 - Ratify-gated: the Z3 encoding-depth enhancement above; Phase 2 (L4/L5, closure).
