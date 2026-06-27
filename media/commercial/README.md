@@ -12,6 +12,8 @@ verification layer) — nothing reaches an executor without a passing proof.
   a bottomless pit of steel locusts, bounded by the proof-gate. 1920×1080, 30.0s.
 - `AUTOGENESIS_abundance_30s.mp4` — a bright, hopeful cut: autonomous systems ending scarcity and
   curing disease, made trustworthy by verifiable proof (safe by construction). 1920×1080, 30.0s.
+- `AUTOGENESIS_for_all_30s.mp4` — an op-ed-style provocation: the capability to feed, house, and
+  heal everyone exists, so why isn't it pointed at the public good? A call for auditable autonomy. 1920×1080, 30.0s.
 
 ## How it was made (Higgsfield)
 
@@ -64,3 +66,16 @@ verification layer) — nothing reaches an executor without a passing proof.
 | 4 | A certificate seal protecting a network of autonomous systems | "But autonomy you can't trust is a risk you can't take." |
 | 5 | Actions flowing through a verification gate, each proof-sealed | "AUTOGENESIS gives every autonomous system a proof you can verify. Safe by construction." |
 | 6 | A thriving green city of healthy people + verified robots; logo | "Abundance. Health. AUTOGENESIS." |
+
+## Storyboard / script — `AUTOGENESIS_for_all_30s.mp4`
+
+> An intentionally rhetorical / aspirational public-interest piece (a question, not a factual claim).
+
+| # | Scene | Voiceover |
+|---|-------|-----------|
+| 1 | A colossal autonomous AI factory building through the night | "We already have the machines. Fully autonomous factories that build around the clock." |
+| 2 | The same factory behind a locked gate, faded flag, dormant | "Enough capacity to feed, house, and heal everyone." |
+| 3 | A split shot: humming machines vs. empty shelves and people in need | "So here's the question. Why isn't all that power pointed at the good of all of us?" |
+| 4 | A lone official before a control panel, a question mark overhead | "The capability is real. The will... is missing." |
+| 5 | The factory redirected to public good, output proof-sealed | "Imagine autonomy we can audit. Production we can trust." |
+| 6 | Sunrise over thriving communities; AUTOGENESIS logo | "Turn the machines toward everyone. AUTOGENESIS." |
