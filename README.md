@@ -12,10 +12,13 @@ The framework is morphology-agnostic, manufacturer-agnostic, format-agnostic,
 and execution-backend-agnostic (human technicians today, robot policies as they
 mature). The single most valuable component is the **verification layer** (L3):
 nothing without a passing, tamper-evident certificate can propagate to the
-fleet. That is what bounds von Neumann error-accumulation and makes
-self-expansion safe.
+fleet.
 
-This repository is **Phase 1**: the information spine, built and green.
+This repository is **Phase 1**: the information spine, built and green. It is a
+verified-*maintenance* substrate **designed to extend to** replication — not one
+that bounds replication error today (closure/L5 and execution/L4 are Phase 2 and
+do not exist here yet). See **Scope & honest limits** below for exactly what the
+certificate does and does not guarantee.
 
 ---
 
@@ -66,7 +69,10 @@ Every `plan_repair` result carries a `Certificate` composing four checks:
    (clearance, force, speed, power) within limits at every step.
 3. **Formal correctness** — structural invariants of the procedure:
    *conservation* (every disassembled part is reassembled) and *ordering*
-   (a valid inverse-then-forward LIFO traversal). *Discharged to Z3.*
+   (a valid inverse-then-forward LIFO traversal). *Discharged to Z3* over free
+   symbolic position variables: contiguity (`Distinct`), the LIFO mirror, and
+   the assembly-hierarchy precedence edges are all solver constraints, plus a
+   satisfiability proof that the hierarchy admits a valid traversal.
 4. **Safety-envelope gate** — a hard ISO 10218 / TS 15066 check on
    force/speed/power. A breach is a hard stop, not a warning.
 
@@ -74,11 +80,32 @@ The certificate pins a content hash of the exact procedure, so mutating the
 procedure after issuance is detected by `verify_against` — an uncertified or
 tampered artifact can never be admitted to an executor.
 
+## Scope & honest limits
+
+The gate is precise about what it proves, and equally precise about what it does
+**not**. It bounds one well-defined error class — artifacts that violate the four
+checked invariants, for a *given* fault on a *given* procedure. Three classes are
+out of scope by construction:
+
+- **Model error.** L1 feasibility is an *analytic* oracle (a simulation seam),
+  so feasibility guarantees are relative to the model, not the physical world. A
+  wrong model yields a wrong-but-certified feasibility verdict.
+- **Defective parts.** A part can be spec-conformant and still defective; the
+  certificate reasons about the genome's spec, not the physical instance.
+- **Misdiagnosis.** The certificate proves the repair is correct/feasible/safe
+  for the *chosen* fault. It says nothing about whether `diagnose()` chose the
+  right fault — a misdiagnosis produces a flawlessly certified repair for the
+  wrong problem. `diagnose()` is a ranked FMEA threshold matcher, not a verified
+  root-cause analysis.
+
+So this bounds a specific, valuable error class — not "error accumulation" in
+general, and not replication error (L4/L5 are Phase 2).
+
 ## Run it
 
 ```bash
 pip install -r requirements.txt
-python -m pytest          # 37 tests, end-to-end
+python -m pytest          # 51 tests, end-to-end
 ```
 
 Z3 discharges the spec and formal proofs when installed; a faithful native
@@ -96,7 +123,7 @@ autogenesis/
   governance/  L6 — hash-chained provenance ledger
   api.py       Capability: ingest / diagnose / plan_repair / admit_to_executor
 examples/      rrbot — a 2-DOF reference genome (bundle + URDF)
-tests/         37 tests across all layers
+tests/         51 tests across all layers
 ```
 
 See **VISION.md** for the definition-of-done and the autonomy envelope, and

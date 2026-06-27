@@ -33,3 +33,16 @@ def prove_unsat(build) -> bool:
     s = z3.Solver()
     build(s, z3)
     return s.check() == z3.unsat
+
+
+def check_sat(build):
+    """Return True iff the constraint set built by ``build(solver)`` is SAT,
+    or ``None`` when z3 is unavailable. Used to prove a structural spec is
+    *satisfiable* (e.g. the access hierarchy admits a valid LIFO traversal),
+    which is a genuine solver search rather than a ground evaluation.
+    """
+    if not HAVE_Z3:
+        return None
+    s = z3.Solver()
+    build(s, z3)
+    return s.check() == z3.sat

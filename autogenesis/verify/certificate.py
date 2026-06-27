@@ -51,7 +51,7 @@ def _run_checks(genome: Genome, procedure: RepairProcedure,
                 fault_part: str, fault_repair_part: str) -> tuple[bool, dict, list[str]]:
     spec = check_spec(genome, fault_repair_part, fault_part, procedure)
     feas = assess(genome, procedure)
-    formal = check_formal(procedure)
+    formal = check_formal(procedure, genome)
     safety = check_safety(genome, feas)
 
     checks = {

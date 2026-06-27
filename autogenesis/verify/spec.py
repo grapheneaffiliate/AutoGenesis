@@ -72,12 +72,14 @@ def check_spec(genome: Genome, fault_repair_part: str, fault_part: str,
         v = step.torque
 
         within_native = lo <= v <= hi
-        proved = _smt.prove_unsat(
-            lambda s, z, v=v, lo=lo, hi=hi: s.add(
-                z.Not(z.And(z.RealVal(lo) <= z.RealVal(v),
-                            z.RealVal(v) <= z.RealVal(hi)))
-            )
-        )
+        # Prove over a *free* real ``t``: for all t, (t == applied) ⇒ lo ≤ t ≤ hi.
+        # Asserting the negation and proving UNSAT discharges the band obligation
+        # as a real quantified proof rather than a ground evaluation.
+        def _build(s, z, v=v, lo=lo, hi=hi):
+            t = z.Real("t")
+            s.add(t == z.RealVal(v))
+            s.add(z.Not(z.And(z.RealVal(lo) <= t, t <= z.RealVal(hi))))
+        proved = _smt.prove_unsat(_build)
         step_ok = proved if _smt.HAVE_Z3 else within_native
         # Native re-check must always agree; disagreement is a hard fail.
         if _smt.HAVE_Z3 and step_ok != within_native:

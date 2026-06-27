@@ -30,7 +30,10 @@ cascade-failure machine.
 - [x] L2 Synthesis: FMEA-driven diagnosis (ranked); repair by
       assembly-by-disassembly.
 - [x] L3 Verification: four checks (spec/feasibility/formal/safety) composed
-      into one certificate; spec + formal discharged to Z3; tamper-evident.
+      into one certificate; spec + formal discharged to Z3; tamper-evident. The
+      formal ordering proof was strengthened (human-ratified, §9) to reason over
+      free symbolic position vars — contiguity, LIFO mirror and assembly-hierarchy
+      precedence as solver constraints, plus a satisfiability proof.
 - [x] L6 Governance: append-only hash-chained provenance ledger.
 - [x] Capability API wiring all of the above; 37 tests green end-to-end.
 

@@ -9,7 +9,7 @@
 
 ## Last run (perfection-harness cycle)
 
-- **Gate: `python -m pytest` → 47 passed, exit 0, `-W error` clean (zero
+- **Gate: `python -m pytest` → 51 passed, exit 0, `-W error` clean (zero
   warnings, zero skips).** Verified twice: with Z3 active *and* with Z3 forced
   unavailable — both engine paths produce identical verdicts across the whole
   suite (no z3/native disagreement recorded anywhere).
@@ -17,16 +17,23 @@
   single access blocker (forearm), so the *multi-element* LIFO reverse-pairing,
   the phase-ordering, the multi-blocker conservation, and the inclusive
   tolerance-band boundary clauses of the L3 proofs were never exercised by a
-  known-bad input — i.e. they had passing verdicts but were not yet *proven able
-  to fail*. Added `tests/test_formal_lifo.py` (10 tests) driving a deeper fault
-  (shoulder_servo → 3 stacked blockers: forearm→elbow_servo→upper_arm) and the
-  exact band edges. Each obligation is now shown to reject a deliberately broken
-  artifact and accept the valid one. No existing test was modified or removed;
-  no evaluation criteria were changed.
-- Empirically confirmed the **existing** formal check already rejects a
-  3-blocker LIFO mirror violation, a disassemble-after-remove phase violation,
-  and a dropped middle-blocker conservation violation. No logic change to
-  `verify/` was required to make these fail correctly — only coverage.
+  known-bad input. Added `tests/test_formal_lifo.py` (10 tests) driving a deeper
+  fault (shoulder_servo → forearm→elbow_servo→upper_arm) and the exact band edges.
+- **Strengthened the Z3 ordering proof (human-ratified, §9).** Previously
+  contiguity and the LIFO pairing were computed in Python and handed to Z3 as a
+  `BoolVal` constant — so the solver ratified a precomputed boolean rather than
+  reasoning. Rewrote `verify/formal.py` to discharge INV-ORDERING over **free**
+  symbolic `Int` position variables: `Distinct`+range (contiguity), the LIFO
+  mirror as a biconditional over all access pairs, and the assembly-hierarchy
+  precedence edges (from the genome) as solver constraints — plus a SAT proof
+  that the hierarchy admits a valid traversal. Torque band now proved over a free
+  `Real`. `check_formal(procedure, genome=None)` is backward-compatible;
+  `certificate.py` passes the genome for the hierarchy-aware proof.
+- Added `tests/test_formal_symbolic.py` (4 tests) proving the strengthening earns
+  its keep: a mirror-consistent but **hierarchy-violating** order is rejected
+  *with* the genome but not by the genome-less check, and the consistency
+  obligation is recorded for valid procedures.
+- **README honesty corrections applied** (see below).
 
 ## Completed increments
 
@@ -38,14 +45,16 @@
 | L3 | `verify/{spec,formal,safety,certificate,_smt}` | ✅ |
 | L6 | `governance/ledger` | ✅ |
 | API | `api.Capability` | ✅ |
+| L3+ | `verify/formal.py` — symbolic ordering proof (hierarchy-aware, §9) | ✅ |
 | Test | `tests/test_formal_lifo.py` — deep-fault LIFO/band coverage (§12) | ✅ |
+| Test | `tests/test_formal_symbolic.py` — hierarchy-precedence proof value | ✅ |
 
 ## Objective gate status (§12)
 
-- [x] Acceptance tests pass and are proven able to fail — now including the
-      multi-blocker ordering/conservation clauses and the inclusive torque-band
-      edges (`tests/test_formal_lifo.py`), not just the single-blocker path.
-- [x] Build imports clean; suite green (**47 tests**), `-W error` clean.
+- [x] Acceptance tests pass and are proven able to fail — multi-blocker
+      ordering/conservation, inclusive torque-band edges, and a mirror-consistent
+      hierarchy violation caught only by the genome-aware proof.
+- [x] Build imports clean; suite green (**51 tests**), `-W error` clean.
 - [x] System artifact (the repair certificate) verifies, and a deliberately
       tampered procedure **fails** `verify_against`.
 - [x] Z3 discharges the spec (tolerance band) and formal (ordering) obligations
@@ -55,42 +64,36 @@
 
 - `claude/autogenesis-platform-1jjeua` — this build.
 
-## Escalated to human (ratify list, §9) — NOT self-merged
+## Ratified & applied this cycle (§9)
 
-- **Z3 encoding depth of the formal `ordering` proof (`verify/formal.py`).** The
-  proof's accept/reject behavior is *correct* and now fully fail-tested, but the
-  two genuinely structural sub-invariants — contiguity and the LIFO
-  reverse-pairing — are computed in Python and handed to Z3 as a `BoolVal`
-  constant (`formal.py:100`); only the positional inequalities enter the solver,
-  and as ground `IntVal`s. So today Z3 provides a *machine-checked recomputation*
-  over ground terms, not a quantified proof. **Recommended enhancement
-  (ratify-list, do not self-merge):** lift the obligation to free `Int` position
-  vars with `Distinct` + range for contiguity, encode the hierarchy precedence
-  edges and the LIFO mirror as solver constraints (so transitively-implied
-  ordering is checked by Z3), and add a satisfiability proof that the access
-  graph admits a valid LIFO traversal. This *changes what the check proves*
-  (certificate semantics, §9) → escalate, draft on the dev branch, human
-  ratifies before any merge to main.
+- **Z3 encoding depth of the formal `ordering` proof** — human-ratified ("you
+  decide for perfection and proceed") and applied to `verify/formal.py` on the
+  dev branch. The old code handed contiguity + LIFO to Z3 as a `BoolVal`
+  constant; the solver now reasons over free symbolic position variables
+  (`Distinct`/range, LIFO mirror biconditional, hierarchy precedence edges) and
+  proves the structural spec is satisfiable. Behaviour-preserving on all prior
+  cases; strictly stronger (catches mirror-consistent hierarchy violations).
+  **Still NOT merged to main** — merge-to-main remains the §9 irreversible gate.
+- **README honesty corrections** — applied: scoped the von Neumann claim to the
+  specific checked error class; named the three escapees (analytic-model error;
+  spec-conformant-but-defective part; **misdiagnosis** — the cert proves the
+  repair for the *chosen* fault, not that `diagnose()` chose right); reframed
+  replication as "designed to extend to" (L4/L5 are Phase 2). New
+  **Scope & honest limits** section in README.
+
+## Still escalated to human (ratify list, §9)
+
 - Initial **genome schema shape**, **certificate semantics**, and
-  **safety-envelope logic** were authored during bootstrapping. Per §9 a human
-  should review `autogenesis/verify/`, `autogenesis/genome/schema.py`, and
-  `autogenesis/genome/validation.py` before they are frozen as contract.
+  **safety-envelope logic** should get a human review before being frozen as
+  contract, and any **merge to main** is the irreversible §9 gate.
 
 ## Open bugs / unverified invariants
 
-- **None.** Both Phase-1 formal invariants (conservation, ordering/LIFO) and the
-  spec obligations (correct-replacement, torque band incl. boundaries) are
-  verified and proven able to fail on known-bad inputs. The §9 item above is an
-  enhancement to proof *depth*, not a correctness bug or an unverified invariant.
-
-## README honesty corrections (pending, from prior review — not yet applied)
-
-- Scope the "bounds von Neumann error-accumulation" claim to the specific error
-  class the four checks catch; name the three escapees (wrong analytic feasibility
-  model; spec-conformant-but-defective part; **misdiagnosis** — the certificate
-  proves the repair for the *chosen* fault, never that `diagnose()` chose right).
-- Reframe replication as "designed to extend to" (L4/L5 are Phase 2, unbuilt),
-  not "bounds replication error today."
+- **None.** Both Phase-1 formal invariants (conservation, ordering/LIFO over the
+  hierarchy) and the spec obligations (correct-replacement, torque band incl.
+  boundaries) are verified, discharged to Z3 with genuine solver reasoning, and
+  proven able to fail on known-bad inputs (incl. a hierarchy-precedence
+  violation that only the genome-aware proof catches).
 
 ## Lessons learned
 
