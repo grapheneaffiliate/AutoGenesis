@@ -14,6 +14,8 @@ verification layer) — nothing reaches an executor without a passing proof.
   curing disease, made trustworthy by verifiable proof (safe by construction). 1920×1080, 30.0s.
 - `AUTOGENESIS_for_all_30s.mp4` — an op-ed-style provocation: the capability to feed, house, and
   heal everyone exists, so why isn't it pointed at the public good? A call for auditable autonomy. 1920×1080, 30.0s.
+- `COSMOS_expanding_into_what_30s.mp4` — a standalone (unbranded) contemplative cosmic short on
+  the question "if the universe is expanding into something, what is that, and did it begin?" 1920×1080, 30.0s.
 
 ## How it was made (Higgsfield)
 
@@ -79,3 +81,17 @@ verification layer) — nothing reaches an executor without a passing proof.
 | 4 | A lone official before a control panel, a question mark overhead | "The capability is real. The will... is missing." |
 | 5 | The factory redirected to public good, output proof-sealed | "Imagine autonomy we can audit. Production we can trust." |
 | 6 | Sunrise over thriving communities; AUTOGENESIS logo | "Turn the machines toward everyone. AUTOGENESIS." |
+
+## Storyboard / script — `COSMOS_expanding_into_what_30s.mp4`
+
+> A standalone, unbranded contemplative short. Narration reflects the mainstream view: space
+> itself expands and need not be expanding "into" anything external.
+
+| # | Scene | Voiceover |
+|---|-------|-----------|
+| 1 | A seed of light blooms into the Big Bang | "The universe is expanding. Every galaxy rushing apart." |
+| 2 | Galaxies streaming outward across the cosmic web | "But expanding into what?" |
+| 3 | The fabric of spacetime stretching, with no edge | "Here's the strange truth. Perhaps nothing at all. Space itself stretches. There may be no edge, no outside." |
+| 4 | Countless bubble-universes in a dark void | "Or maybe ours is just one bubble among countless others." |
+| 5 | A cosmic clock of light at the dawn of time | "And that something... did it have a beginning? Did time itself begin?" |
+| 6 | A lone figure gazing up at the expanding cosmos | "The universe expands. Into mystery." |
